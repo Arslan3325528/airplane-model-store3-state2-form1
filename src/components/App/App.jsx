@@ -42,6 +42,7 @@ export class App extends Component {
     isCartButton: false, //! тригер: "якщо активна кнопка «Кошик»"
     // totalTypes: aircrafts.length, //! кількість типів ЛА (всіх літальних апаратів)
     inputSearchValue: "", //! значення inputSearch
+    aircraftsArrAfterFiltration: aircrafts  //! дубльоване значення aircraftsArr після фільтрації
   };
 
   //! 2.localStorage - Створення запису в localStorage під час першого запуску якщо його немає
@@ -93,8 +94,9 @@ export class App extends Component {
       aircraftsArr: aircrafts,
       aircraftsTitle: "Магазин моделей літальних апаратів",
       activeButton: "allButton", //! візуалізація активної кнопки
-      isCartButton: false, //! тригер: "якщо активна кнопка «Кошик»" 
+      isCartButton: false, //! тригер: "якщо активна кнопка «Кошик»"
       // totalTypes: aircrafts.length, //! кількість типів ЛА (всіх літальних апаратів)
+      aircraftsArrAfterFiltration: aircrafts  //! дубльоване значення aircraftsArr після фільтрації
     });
     // console.log("✈️✈️✈️totalModels:", this.getTotalModels()); //! тимчасово
   };
@@ -109,6 +111,7 @@ export class App extends Component {
       activeButton: "planeButton", //! візуалізація активної кнопки
       isCartButton: false, //! тригер: "якщо активна кнопка «Кошик»"
       // totalTypes: onlyPlanes.length, //! кількість типів ЛА (літаків)
+      aircraftsArrAfterFiltration: onlyPlanes  //! дубльоване значення aircraftsArr після фільтрації
     });
   };
 
@@ -122,6 +125,7 @@ export class App extends Component {
       activeButton: "biplaneButton", //! візуалізація активної кнопки
       isCartButton: false, //! тригер: "якщо активна кнопка «Кошик»"
       // totalTypes: onlyBiplane.length, //! кількість типів ЛА (біпланів)
+      aircraftsArrAfterFiltration: onlyBiplane  //! дубльоване значення aircraftsArr після фільтрації
     });
   };
 
@@ -135,6 +139,7 @@ export class App extends Component {
       activeButton: "helicopterButton", //! візуалізація активної кнопки
       isCartButton: false, //! тригер: "якщо активна кнопка «Кошик»"
       // totalTypes: onlyHelicopters.length, //! кількість типів ЛА (вертольотів)
+      aircraftsArrAfterFiltration: onlyHelicopters  //! дубльоване значення aircraftsArr після фільтрації
     });
   };
 
@@ -146,6 +151,7 @@ export class App extends Component {
   //     aircrafts.filter((el) => id === el.id))
   //     .sort((a, b) =>a.name.brief.localeCompare(b.name.brief)); //! з сортуванням за полем "name.brief"
 
+  //! Обробка кнопок-фільтрів
   cartFiltration = () => {
     console.log("Клік в кнопку Кошик");
     // Формуємо(оновлюємо) масив обраних моделей [selectedModels] не зберігаючи його в state:
@@ -159,6 +165,7 @@ export class App extends Component {
       isCartButton: true, //! тригер: "якщо активна кнопка «Кошик»" 
     });
   };
+
   //! Обробка кліка на кнопці <Додати до кошику>
   getActiveId = id => {
     console.log('🆔Індекс обраної моделі ("id"):', id); //!
@@ -181,7 +188,7 @@ export class App extends Component {
 
   //! Обробка введених даних для пошуку(фільтрації) карток за ім'ям або іншими параметрами
   handleChangeInputSearchValue = event => { 
-    const onlyInputSearchValue = aircrafts.filter(
+    const onlyInputSearchValue = this.state.aircraftsArrAfterFiltration.filter(
       aircraft => aircraft.name.brief.toLowerCase().startsWith(event.target.value.trim().toLowerCase())
     );
     this.setState({
@@ -201,7 +208,7 @@ export class App extends Component {
       isCartButton, //! тригер: "якщо активна кнопка «Кошик»"
       // totalTypes //! кількість типів ЛА
       inputSearchValue, //! значення inputSearch
-
+      aircraftsArrAfterFiltration,  //! дубльоване значення aircraftsArr після фільтрації
     } = this.state;
 
     //! Рахуємо кількість типів ЛА
@@ -229,6 +236,7 @@ export class App extends Component {
     console.log("Ⓜ️Масив обраних моделей:", selectedModels);
     console.log("🔢Кількість обраних моделей:", numberOfModels);
     console.log("🔡Значення inputSearch:", inputSearchValue);
+    console.log("🔡Дубльоване значення aircraftsArr після фільтрації:", aircraftsArrAfterFiltration);
     console.log("______________________________________________");
 
     return (
