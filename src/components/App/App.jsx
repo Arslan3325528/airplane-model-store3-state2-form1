@@ -222,14 +222,18 @@ export class App extends Component {
     //! Формуємо(оновлюємо) масив обраних моделей [selectedModels]
     // const selectedModels = indicesSelectedModels.flatMap(id => aircrafts.filter((el) => id === el.id));
     // const selectedModels = this.updateSelectedModels();
-    const selectedModelsBeforeSorting = updateSelectedModels(indicesSelectedModels, aircrafts); //! якщо імпортуємо - це до сортування
+    const selectedModelsBeforeSorting = updateSelectedModels(indicesSelectedModels, aircrafts); //! якщо імпортуємо;  це до сортування
     //! Після сортування
     const selectedModels = selectedModelsBeforeSorting.filter(
       aircraft => aircraft.name.brief.toLowerCase().startsWith(inputSearchValue.trim().toLowerCase())
     );
 
-    //! Рахуємо кількість обраних моделей
-    const numberOfModels = indicesSelectedModels.length; 
+    //! Кількість обраних моделей 
+    const numberOfModels = indicesSelectedModels.length;
+
+    //! Кількість обраних моделей після сортування
+    const numberOfModelsAfterSorting = selectedModels.length;
+    
 
     console.log("----------------------------------------------");
     console.log("ℹ️Mасив індексів обраних моделей :", indicesSelectedModels);
@@ -270,7 +274,7 @@ export class App extends Component {
           title={(isCartButton && !indicesSelectedModels.length) ? "" : aircraftsTitle}
           allTypes={totalTypes} //! кількість типів ЛА
           totalModels={isCartButton ? getTotalModels(selectedModels) : getTotalModels(aircraftsArr)} //! загальна кількість моделей 
-          numberOfSelectedModels={numberOfModels} //! кількість обраних моделей
+          numberOfSelectedModelsAfterSorting={numberOfModelsAfterSorting} //! кількість обраних моделей
           isCartOn={isCartButton} //! тригер: "якщо активна кнопка «Кошик»"
         >
           <PlanesList

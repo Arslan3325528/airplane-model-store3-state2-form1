@@ -7,7 +7,7 @@ export function Section({
   title,
   allTypes,
   totalModels,
-  numberOfSelectedModels,
+  numberOfSelectedModelsAfterSorting,
   isCartOn,
   bgColor = "unset",
   children
@@ -31,7 +31,7 @@ export function Section({
               <h3 className={css.titleTotalTypes}>
                 Кількість типів ЛА:&nbsp;
                 <span>
-                  {isCartOn ? numberOfSelectedModels : allTypes}
+                  {isCartOn ? numberOfSelectedModelsAfterSorting : allTypes}
                 </span>
               </h3>
               <h3 className={css.titleTotalModels}>

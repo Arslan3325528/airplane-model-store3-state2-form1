@@ -22,6 +22,7 @@ export function Sorter({
           <input
             className={css.inputSearch}
             type="text"
+            placeholder=" Введіть назву ЛА"
             defaultValue={inputSearchValue} //! початкове значення inputSearch
             // onChange={() => console.log("input")}
             // onChange={(event) => console.log(event.target.value)}
