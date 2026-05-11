@@ -9,6 +9,8 @@ export function Sorter({
   onHandleChangeInputSearchValue,
   isCartOn, //! тригер: "якщо активна кнопка «Кошик»"
   numberOfSelectedModels, //! кількість обраних моделей
+  onHandleChangeRadioButtonValue,
+  radioButtonValue,  //! значення параметра для пошуку/фільтрації радіо-кнопки
 })
 {
   // console.log("(!isCartButton):", !isCartOn);
@@ -19,6 +21,56 @@ export function Sorter({
     <>
       {(!isCartOn || numberOfSelectedModels) &&
         <div className={css.searchBox}>
+          <form>
+            <h3>Вибір параметра для пошуку/фільтрації:</h3>
+
+            <label>
+              <input
+                type="radio"
+                name="sort"
+                value="brief"
+                checked={radioButtonValue === "brief"}
+                onChange={onHandleChangeRadioButtonValue}
+              />
+              Назва
+            </label>
+
+            <label>
+              <input
+                type="radio"
+                name="sort"
+                value="nickname"
+                checked={radioButtonValue === "nickname"}
+                onChange={onHandleChangeRadioButtonValue}
+              />
+              Прізвисько
+            </label>
+
+            <label>
+              <input
+                type="radio"
+                name="sort"
+                value="country"
+                checked={radioButtonValue === "country"}
+                onChange={onHandleChangeRadioButtonValue}
+              />
+              Країна виробник
+            </label>
+
+            <label>
+              <input
+                type="radio"
+                name="sort"
+                value="year"
+                checked={radioButtonValue === "year"}
+                onChange={onHandleChangeRadioButtonValue}
+              />
+              Рік випуску
+            </label>
+
+            <p>Ваш вібір: {radioButtonValue}</p>
+          </form>
+
           <input
             className={css.inputSearch}
             type="text"
@@ -28,6 +80,7 @@ export function Sorter({
             // onChange={(event) => console.log(event.target.value)}
             onChange={onHandleChangeInputSearchValue}
           />
+
           {/* <button
             className={css.buttonSearch}
             type="button"

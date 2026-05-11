@@ -42,7 +42,8 @@ export class App extends Component {
     isCartButton: false, //! тригер: "якщо активна кнопка «Кошик»"
     // totalTypes: aircrafts.length, //! кількість типів ЛА (всіх літальних апаратів)
     inputSearchValue: "", //! значення inputSearch
-    aircraftsArrAfterFiltration: aircrafts  //! дубльоване значення aircraftsArr після фільтрації
+    aircraftsArrAfterFiltration: aircrafts,  //! дубльоване значення aircraftsArr після фільтрації
+    radioButtonValue: "brief", //! значення параметра для пошуку/фільтрації радіо-кнопки
   };
 
   //! 2.localStorage - Створення запису в localStorage під час першого запуску якщо його немає
@@ -197,6 +198,13 @@ export class App extends Component {
     });
   };
 
+  //! Обробка введених даних: значення параметра для пошуку/фільтрації радіо-кнопки
+  handleChangeRadioButtonValue = (event) => {
+    this.setState({
+      radioButtonValue: event.target.value,
+    });
+  };
+
 
   render() {
     const {
@@ -209,6 +217,7 @@ export class App extends Component {
       // totalTypes //! кількість типів ЛА
       inputSearchValue, //! значення inputSearch
       aircraftsArrAfterFiltration,  //! дубльоване значення aircraftsArr після фільтрації
+      radioButtonValue, //! значення параметра для пошуку/фільтрації радіо - кнопки
     } = this.state;
 
     //! Рахуємо кількість типів ЛА
@@ -240,7 +249,8 @@ export class App extends Component {
     console.log("Ⓜ️Масив обраних моделей:", selectedModels);
     console.log("🔢Кількість обраних моделей:", numberOfModels);
     console.log("🔡Значення inputSearch:", inputSearchValue);
-    console.log("🔡Дубльоване значення aircraftsArr після фільтрації:", aircraftsArrAfterFiltration);
+    console.log("Ⓜ️Ⓜ️Дубльоване значення aircraftsArr після фільтрації:", aircraftsArrAfterFiltration);
+    console.log("⭕️значення параметра для пошуку/фільтрації радіо-кнопки:", radioButtonValue);
     console.log("______________________________________________");
 
     return (
@@ -262,7 +272,8 @@ export class App extends Component {
           onHandleChangeInputSearchValue={this.handleChangeInputSearchValue}
           isCartOn={isCartButton} //! тригер: "якщо активна кнопка «Кошик»"
           numberOfSelectedModels={numberOfModels} //! кількість обраних моделей
-          
+          onHandleChangeRadioButtonValue={this.handleChangeRadioButtonValue}
+          radioButtonValue={radioButtonValue} //! значення параметра для пошуку/фільтрації радіо-кнопки
         />
 
         {/*//! ВСІ */}
