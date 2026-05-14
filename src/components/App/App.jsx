@@ -40,7 +40,7 @@ export class App extends Component {
     // indicesSelectedModels: [], //! масив індексів обраних моделей
     //! 1.localStorage - Ініціалізація state з localStorage
     indicesSelectedModels: JSON.parse(localStorage.getItem("selectedModels")) || [], //! масив індексів обраних моделей
-    // selectedModels: [], //! масив обраних моделей
+    selectedModels: [], //! масив обраних моделей
     isCartButton: false, //! тригер: "якщо активна кнопка «Кошик»"
     // totalTypes: aircrafts.length, //! кількість типів ЛА (всіх літальних апаратів)
     inputSearchValue: "", //! значення inputSearch
@@ -167,12 +167,14 @@ export class App extends Component {
     // const selectedModels = this.state.indicesSelectedModels.flatMap(id => aircrafts.filter((el) => id === el.id));
     // console.log("selectedModels:", selectedModels);
     this.setState({
+      // selectedModels,
       // aircraftsArr: selectedModels,
       // aircraftsArr: this.updateSelectedModels(), //! вже не треба, якщо є isCartButton
       aircraftsTitle: "Мої обрані моделі",
       activeButton: "cartButton", //! візуалізація активної кнопки
       isCartButton: true, //! тригер: "якщо активна кнопка «Кошик»"
       inputSearchValue: "", //! значення inputSearch
+      aircraftsArrAfterFiltration: this.state.selectedModels,  //! дубльоване значення aircraftsArr після фільтрації
     });
   };
 
@@ -191,38 +193,73 @@ export class App extends Component {
         indicesSelectedModels: exists
           ? prevState.indicesSelectedModels.filter(item => item !== id)
           // : [...prevState.indicesSelectedModels, id] //! без сортування
-          : [...prevState.indicesSelectedModels, id].sort((a, b) => a - b) //! сортування за id
+          : [...prevState.indicesSelectedModels, id].sort((a, b) => a - b), //! сортування за id
       };
     });
+    // this.setState({
+    //   selectedModels: this.updateSelectedModels()
+    // });
   };
 
   //! Обробка введених даних для пошуку(фільтрації) карток за ім'ям або іншими параметрами
-  handleChangeInputSearchValue = event => { 
-    const onlyInputSearchValue = this.state.aircraftsArrAfterFiltration.filter(
-      aircraft => aircraft.name.brief.toLowerCase().startsWith(event.target.value.trim().toLowerCase())
-    );
-
+  handleChangeInputSearchValue = event => {
+    console.log("Подія onChange в inputSearch");
+    // const onlyInputSearchValue = this.state.aircraftsArrAfterFiltration.filter(
+    //   aircraft => aircraft.name.brief.toLowerCase().startsWith(event.target.value.trim().toLowerCase())
+    // );
     // this.setState({
     //   inputSearchValue: event.target.value,
     //   aircraftsArr: onlyInputSearchValue,
     // });
+    const array =
+      this.state.isCartButton
+        ? this.state.indicesSelectedModels.flatMap(id => aircrafts.filter((el) => id === el.id))
+        : this.state.aircraftsArrAfterFiltration
+
+    const inputSearchValueBrief = array.filter(
+      aircraft => aircraft.name.brief.toLowerCase().startsWith(event.target.value.trim().toLowerCase())
+    );
+    const inputSearchValueNickname = array.filter(
+      aircraft => aircraft.name.nickname.toLowerCase().includes(event.target.value.trim().toLowerCase())
+    );
+    const inputSearchValueCountry = array.filter(
+      aircraft => aircraft.info.country.toLowerCase().startsWith(event.target.value.trim().toLowerCase())
+    );
+    const inputSearchValueYear = array.filter(
+      aircraft => String(aircraft.info.year).startsWith((event.target.value.trim()))
+    );
+
+    console.log("⏰⏰⏰inputSearchValueYear:", inputSearchValueYear);
 
     switch (this.state.radioButtonValue) {
       case "brief":
         this.setState({
           inputSearchValue: event.target.value,
-          aircraftsArr: onlyInputSearchValue,
+          aircraftsArr: inputSearchValueBrief,
+          selectedModels: inputSearchValueBrief,
         });
         break;
-      // case "nickname":
-      //   inputSearchPlaceholder = "Введіть прізвисько ЛА";
-      //   break;
-      // case "country":
-      //   inputSearchPlaceholder = "Введіть країну виробник ЛА";
-      //   break;
-      // case "year":
-      //   inputSearchPlaceholder = "Введіть рік випуску ЛА";
-      //   break;
+      case "nickname":
+        this.setState({
+          inputSearchValue: event.target.value,
+          aircraftsArr: inputSearchValueNickname,
+          selectedModels: inputSearchValueNickname,
+        });
+        break;
+      case "country":
+        this.setState({
+          inputSearchValue: event.target.value,
+          aircraftsArr: inputSearchValueCountry,
+          selectedModels: inputSearchValueCountry,
+        });
+        break;
+      case "year":
+        this.setState({
+          inputSearchValue: event.target.value,
+          aircraftsArr: inputSearchValueYear,
+          selectedModels: inputSearchValueYear,
+        });
+        break;
       default:
         fieldValue = "";
     };
@@ -231,7 +268,14 @@ export class App extends Component {
   };
 
   //! Обробка введених даних: значення параметра для пошуку/фільтрації радіо-кнопки
-  handleChangeRadioButtonValue = (event) => {
+  handleChangeRadioButtonValue = event => {
+    console.log("Подія checked");
+
+    this.setState({
+      inputSearchValue: "",
+      aircraftsArr: this.state.aircraftsArrAfterFiltration,
+    });
+
     const radioButtonValue = event.target.value;
     let inputSearchPlaceholder = "";
 
@@ -265,7 +309,7 @@ export class App extends Component {
       aircraftsTitle,
       activeButton, //! візуалізація активної кнопки
       indicesSelectedModels, //! масив індексів обраних моделей
-      // selectedModels //! масив обраних моделей 
+      selectedModels, //! масив обраних моделей 
       isCartButton, //! тригер: "якщо активна кнопка «Кошик»"
       // totalTypes //! кількість типів ЛА
       inputSearchValue, //! значення inputSearch
@@ -287,9 +331,10 @@ export class App extends Component {
     // const selectedModels = this.updateSelectedModels();
     const selectedModelsBeforeSorting = updateSelectedModels(indicesSelectedModels, aircrafts); //! якщо імпортуємо;  це до сортування
     //! Після сортування
-    const selectedModels = selectedModelsBeforeSorting.filter(
-      aircraft => aircraft.name.brief.toLowerCase().startsWith(inputSearchValue.trim().toLowerCase())
-    );
+    // const selectedModels = selectedModelsBeforeSorting.filter(
+    //   aircraft => aircraft.name.brief.toLowerCase().startsWith(inputSearchValue.trim().toLowerCase())
+    // );
+    // const selectedModels = selectedModelsBeforeSorting;
 
     //! Кількість обраних моделей 
     const numberOfModels = indicesSelectedModels.length;
