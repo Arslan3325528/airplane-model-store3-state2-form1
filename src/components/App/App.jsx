@@ -39,8 +39,11 @@ export class App extends Component {
     activeButton: "allButton", //! візуалізація активної кнопки
     // indicesSelectedModels: [], //! масив індексів обраних моделей
     //! 1.localStorage - Ініціалізація state з localStorage
-    indicesSelectedModels: JSON.parse(localStorage.getItem("selectedModels")) || [], //! масив індексів обраних моделей
-    selectedModels: [], //! масив обраних моделей
+    indicesSelectedModels: JSON.parse(localStorage.getItem("indicesSelectedModels")) || [], //! масив індексів обраних моделей
+    // selectedModels: [], //! масив обраних моделей
+    selectedModels: (JSON.parse(localStorage.getItem("indicesSelectedModels")) || []).flatMap(id =>
+        aircrafts.filter((el) => id === el.id))
+      .sort((a, b) => a.name.brief.localeCompare(b.name.brief)), //! масив обраних моделей
     isCartButton: false, //! тригер: "якщо активна кнопка «Кошик»"
     // totalTypes: aircrafts.length, //! кількість типів ЛА (всіх літальних апаратів)
     inputSearchValue: "", //! значення inputSearch
@@ -52,20 +55,22 @@ export class App extends Component {
 
   //! 2.localStorage - Створення запису в localStorage під час першого запуску якщо його немає
   componentDidMount() {
-    const saved = localStorage.getItem("selectedModels");
+    const saved = localStorage.getItem("indicesSelectedModels");
     if (!saved) {
-      localStorage.setItem("selectedModels", JSON.stringify([]));
+      localStorage.setItem("indicesSelectedModels", JSON.stringify([]));
     }
   };
 
   //! 3.localStorage - Оновлення(синхронізація) localStorage при кожній зміні indicesSelectedModels
   componentDidUpdate(prevProps, prevState) {
     if (prevState.indicesSelectedModels !== this.state.indicesSelectedModels) {
-      localStorage.setItem(
-        "selectedModels",
-        JSON.stringify(this.state.indicesSelectedModels)
-      );
-    }
+      localStorage.setItem("indicesSelectedModels", JSON.stringify(this.state.indicesSelectedModels));
+      this.setState({
+        selectedModels: this.state.indicesSelectedModels.flatMap(id =>
+          aircrafts.filter((el) => id === el.id))
+          .sort((a, b) => a.name.brief.localeCompare(b.name.brief)) //! з сортуванням за полем "name.brief"
+      });
+    };
   };
 
   //! Рахуємо загальну кількість моделей <totalModels> виходячи з наявності фактичної ціни:
@@ -165,7 +170,7 @@ export class App extends Component {
     this.setState(prevState => ({
       selectedModels: prevState.indicesSelectedModels.flatMap(id =>
           aircrafts.filter((el) => id === el.id))
-          .sort((a, b) =>a.name.brief.localeCompare(b.name.brief))
+        .sort((a, b) => a.name.brief.localeCompare(b.name.brief)) //! з сортуванням за полем "name.brief"
     }));
   };
 
