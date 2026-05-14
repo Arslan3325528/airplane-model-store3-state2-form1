@@ -3,11 +3,14 @@
     padding: 10px;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(540px, auto));
+    /* grid-template-columns: repeat(auto-fit, minmax(540px, 50%)); */
+    justify-content: center;
     gap: 32px;
     /* outline: 1px solid red; */
 }
 
 .planesItem {
+    max-width: 59vw;
     display: grid;
     gap: 12px;
     padding: 10px;
