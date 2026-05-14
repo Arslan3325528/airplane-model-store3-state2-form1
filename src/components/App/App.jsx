@@ -153,12 +153,21 @@ export class App extends Component {
   };
 
   //! Імпортуємо з @/utils/updateSelectedModels.js
-  //! Формуємо(оновлюємо) масив обраних моделей [selectedModels] не зберігаючи його в state:
+  //! Формуємо(оновлюємо) масив обраних моделей [selectedModels] НЕ зберігаючи його в state:
   // updateSelectedModels = () => this.state.indicesSelectedModels.flatMap(id => aircrafts.filter((el) => id === el.id)); //! без сортування
   // updateSelectedModels = () =>
   //   this.state.indicesSelectedModels.flatMap(id =>
   //     aircrafts.filter((el) => id === el.id))
   //     .sort((a, b) =>a.name.brief.localeCompare(b.name.brief)); //! з сортуванням за полем "name.brief"
+  //! Формуємо(оновлюємо) масив обраних моделей [selectedModels] зберігаючи його в state:
+  //*✅ Так додає останній елемент
+  updateSelectedModels = () => {
+    this.setState(prevState => ({
+      selectedModels: prevState.indicesSelectedModels.flatMap(id =>
+          aircrafts.filter((el) => id === el.id))
+          .sort((a, b) =>a.name.brief.localeCompare(b.name.brief))
+    }));
+  };
 
   //! Обробка кнопок-фільтрів
   cartFiltration = () => {
@@ -181,24 +190,24 @@ export class App extends Component {
   //! Обробка кліка на кнопці <Додати до кошику>
   getActiveId = id => {
     console.log('🆔Індекс обраної моделі ("id"):', id); //!
-    this.setState(prevState => {
+    this.setState((prevState) => {
       //! Перевіряємо наявність елемента зі значенням <id> у масиві індексів обраних моделей [indicesSelectedModels]
-      const exists = prevState.indicesSelectedModels.includes(id);
+      const exists = this.state.indicesSelectedModels.includes(id);
       if (exists) {
         console.log("Такий індекс моделі вже є,тоді ВИДАЛЯЄМО його!❌");
       } else {
         console.log("Такого індекса моделі ще немає,тоді ДОДАЄМО його!✅");
       };
       return {
-        indicesSelectedModels: exists
-          ? prevState.indicesSelectedModels.filter(item => item !== id)
+        indicesSelectedModels:
+          exists
+            ? this.state.indicesSelectedModels.filter(item => item !== id)
           // : [...prevState.indicesSelectedModels, id] //! без сортування
-          : [...prevState.indicesSelectedModels, id].sort((a, b) => a - b), //! сортування за id
+            : [...this.state.indicesSelectedModels, id].sort((a, b) => a - b), //! сортування за id
+        // selectedModels: updateSelectedModels(prevState.indicesSelectedModels, aircrafts) //!❌ так НЕ додає останній елемент
       };
     });
-    // this.setState({
-    //   selectedModels: this.updateSelectedModels()
-    // });
+    this.updateSelectedModels(); //*✅ так додає останній елемент
   };
 
   //! Обробка введених даних для пошуку(фільтрації) карток за ім'ям або іншими параметрами
@@ -263,8 +272,6 @@ export class App extends Component {
       default:
         fieldValue = "";
     };
-
-    
   };
 
   //! Обробка введених даних: значення параметра для пошуку/фільтрації радіо-кнопки
@@ -329,7 +336,7 @@ export class App extends Component {
     //! Формуємо(оновлюємо) масив обраних моделей [selectedModels]
     // const selectedModels = indicesSelectedModels.flatMap(id => aircrafts.filter((el) => id === el.id));
     // const selectedModels = this.updateSelectedModels();
-    const selectedModelsBeforeSorting = updateSelectedModels(indicesSelectedModels, aircrafts); //! якщо імпортуємо;  це до сортування
+    // const selectedModelsBeforeSorting = updateSelectedModels(indicesSelectedModels, aircrafts); //! якщо імпортуємо;  це до сортування
     //! Після сортування
     // const selectedModels = selectedModelsBeforeSorting.filter(
     //   aircraft => aircraft.name.brief.toLowerCase().startsWith(inputSearchValue.trim().toLowerCase())
