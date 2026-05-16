@@ -239,13 +239,15 @@ export class App extends Component {
       aircraft => aircraft.name.nickname.toLowerCase().includes(event.target.value.trim().toLowerCase())
     );
     const inputSearchValueCountry = prevArray.filter(
-      aircraft => aircraft.info.country.toLowerCase().startsWith(event.target.value.trim().toLowerCase())
+      // aircraft => aircraft.info.country.toLowerCase().startsWith(event.target.value.trim().toLowerCase())
+      aircraft => aircraft.info.countries.some(country => country.toLowerCase().startsWith(event.target.value.trim().toLowerCase()))
     );
     const inputSearchValueYear = prevArray.filter(
       aircraft => String(aircraft.info.year).startsWith((event.target.value.trim()))
     );
 
     // console.log("⏰⏰⏰inputSearchValueYear:", inputSearchValueYear);
+    // console.log("⏰⏰⏰inputSearchValueCountry:", inputSearchValueCountry);
 
     switch (this.state.radioButtonValue) {
       case "brief":

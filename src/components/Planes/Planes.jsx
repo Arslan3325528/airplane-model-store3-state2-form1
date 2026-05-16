@@ -28,7 +28,7 @@ export function Planes({
   nameFull,
   nickname = "не відомо",
   year,
-  country,
+  countries,
   type,
   price = "немає інформації",
   description,
@@ -55,7 +55,16 @@ export function Planes({
       <p className={css.textField}><FcTrademark size={iconSize.md} className={css.icon} /> Повна назва: <span className={css.boldStyle} >{nameFull}</span></p>
       <p className={css.textField}><GiCommercialAirplane size={iconSize.md} className={css.icon} /> Тип: <span className={css.textFieldValue}>{type}</span></p>
       <p className={css.textField}><GiCurlyMask size={iconSize.md} className={css.icon} /> Прізвисько: <span className={css.textFieldValue}>{nickname}</span></p>
-      <p className={css.textField}><CiGlobe size={iconSize.md} className={css.icon} /> Країна виробник: <span className={css.textFieldValue}>{country}</span></p>
+      {/* <p className={css.textField}><CiGlobe size={iconSize.md} className={css.icon} /> Країна виробник: <span className={css.textFieldValue}>{country}</span></p> */}
+      <p className={css.textField}>
+        <CiGlobe size={iconSize.md} className={css.icon} /> Країна виробник: <span className={css.textFieldValue}>
+          {countries.map(
+            (country, index, arr) =>
+              <span key={index}>
+                {country}{index === arr.length - 1 ? "" : ", "}
+              </span>
+          )}
+      </span></p>
       <p className={css.textField}><AiOutlineClockCircle size={iconSize.md} className={css.icon} /> Рік випуску: <span className={css.textFieldValue}>{year}</span></p>
       <p className={css.textField}><TbClockHour4Filled size={iconSize.md} className={css.icon} /> Тривалість виробництва (в роках): <span className={css.textFieldValue}>{getManufacturingYears(manufacturingStart, manufacturingEnd)}</span></p>
       <p className={css.textField}><AiOutlineDollarCircle size={iconSize.md} className={css.icon} /> Ціна: <span className={css.textFieldValue}>{price}</span></p>
