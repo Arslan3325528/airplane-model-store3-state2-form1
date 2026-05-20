@@ -9,7 +9,8 @@ import './index.css';
 //! Aбсолютний шлях + Реекспорт
 import {
   App,
-  AppColorBox
+  AppColorBox,
+  AppLoginForm
 } from '@/components/App';
 
 
@@ -17,8 +18,9 @@ createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter basename="/airplane-model-store3-state2-form1">
       <ThemeProvider theme={theme}>
-        <App />
+        {/* <App /> */}
         {/* <AppColorBox />  */}
+        <AppLoginForm onSubmit={values => console.log(values)} />
       </ThemeProvider>
     </BrowserRouter>
   </StrictMode >
