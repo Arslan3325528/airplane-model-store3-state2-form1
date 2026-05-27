@@ -10,7 +10,8 @@ import './index.css';
 import {
   App,
   AppColorBox,
-  AppLoginForm
+  AppLoginForm,
+  AppSearchDebounce
 } from '@/components/App';
 
 
@@ -18,9 +19,10 @@ createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter basename="/airplane-model-store3-state2-form1">
       <ThemeProvider theme={theme}>
-        <App />
+        {/* <App /> */}
         {/* <AppColorBox />  */}
         {/* <AppLoginForm onSubmit={values => console.log(values)} /> */}
+        <AppSearchDebounce />
       </ThemeProvider>
     </BrowserRouter>
   </StrictMode >
