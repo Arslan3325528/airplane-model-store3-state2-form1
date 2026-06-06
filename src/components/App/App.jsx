@@ -219,7 +219,7 @@ export class App extends Component {
   };
 
   //! ВСЯ логіка фільтрації для обробки введених даних для пошуку(фільтрації)
-  performSearch = (textInput) => {
+  performSearch = textInput => {
     const prevArray =
       this.state.isCartButton
         ? this.state.indicesSelectedModels.flatMap(id => aircrafts.filter((el) => id === el.id))
