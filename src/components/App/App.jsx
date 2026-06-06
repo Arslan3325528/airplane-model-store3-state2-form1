@@ -215,26 +215,9 @@ export class App extends Component {
     });
     this.updateSelectedModels(); //*✅ так додає останній елемент
   };
-  
-  //! Створюємо debounce як class property:
-  debouncedSearch = debounce((text) => {
-    console.log("❗️❗️❗️debounce_text", text);
-    return text
-  }, 2500);
 
-  //! Обробка введених даних для пошуку(фільтрації) карток за ім'ям або іншими параметрами
-  handleChangeInputSearchValue = event => {
-    console.log("Подія onChange в inputSearch");
-
-    const textInput = event.target.value;
-
-    // const onlyInputSearchValue = this.state.aircraftsArrAfterFiltration.filter(
-    //   aircraft => aircraft.name.brief.toLowerCase().startsWith(textInput.trim().toLowerCase())
-    // );
-    // this.setState({
-    //   inputSearchValue: textInput,
-    //   aircraftsArr: onlyInputSearchValue,
-    // });
+  //! ВСЯ логіка фільтрації для обробки введених даних для пошуку(фільтрації)
+  performSearch = (textInput) => {
     const prevArray =
       this.state.isCartButton
         ? this.state.indicesSelectedModels.flatMap(id => aircrafts.filter((el) => id === el.id))
@@ -259,42 +242,110 @@ export class App extends Component {
     // console.log("⏰⏰⏰inputSearchValueYear:", inputSearchValueYear);
     // console.log("⏰⏰⏰inputSearchValueCountry:", inputSearchValueCountry);
 
+    let result = [];
+
     switch (this.state.radioButtonValue) {
       case "brief":
-        this.setState({
-          inputSearchValue: textInput,
-          aircraftsArr: inputSearchValueBrief,
-          selectedModels: inputSearchValueBrief,
-        });
+        result = inputSearchValueBrief;
         break;
       case "nickname":
-        this.setState({
-          inputSearchValue: textInput,
-          aircraftsArr: inputSearchValueNickname,
-          selectedModels: inputSearchValueNickname,
-        });
+        result = inputSearchValueNickname;
         break;
       case "country":
-        this.setState({
-          inputSearchValue: textInput,
-          aircraftsArr: inputSearchValueCountry,
-          selectedModels: inputSearchValueCountry,
-        });
+        result = inputSearchValueCountry;
         break;
       case "year":
-        this.setState({
-          inputSearchValue: textInput,
-          aircraftsArr: inputSearchValueYear,
-          selectedModels: inputSearchValueYear,
-        });
+        result = inputSearchValueYear;
         break;
       default:
         fieldValue = "";
     };
 
-    this.debouncedSearch(textInput);
+    this.setState({
+      aircraftsArr: result,
+      selectedModels: result,
+    });
   };
 
+  //! Створюємо debounce як class property:
+  debouncedSearch = debounce((text) => {
+    console.log("⏰debounce_text", text);
+    this.performSearch(text);
+  }, 500);
+
+  
+  //! Обробка введених даних для пошуку(фільтрації) карток за ім'ям або іншими параметрами
+  handleChangeInputSearchValue = event => {
+    console.log("Подія onChange в inputSearch");
+    const textInput = event.target.value;
+
+    this.setState({
+      inputSearchValue: textInput,
+    });
+
+    //! Запуск debounce з логікою фільтрації:
+    this.debouncedSearch(textInput);
+
+    //! Виносимо логіку фільтрації в окремий метод performSearch
+    // const prevArray =
+    //   this.state.isCartButton
+    //     ? this.state.indicesSelectedModels.flatMap(id => aircrafts.filter((el) => id === el.id))
+    //       .sort((a, b) => a.name.brief.localeCompare(b.name.brief)) //! з сортуванням за полем "name.brief"
+    //     // ? this.state.selectedModels
+    //     : this.state.aircraftsArrAfterFiltration
+
+    // const inputSearchValueBrief = prevArray.filter(
+    //   aircraft => aircraft.name.brief.toLowerCase().startsWith(textInput.trim().toLowerCase())
+    // );
+    // const inputSearchValueNickname = prevArray.filter(
+    //   aircraft => aircraft.name.nickname.toLowerCase().includes(textInput.trim().toLowerCase())
+    // );
+    // const inputSearchValueCountry = prevArray.filter(
+    //   // aircraft => aircraft.info.country.toLowerCase().startsWith(textInput.trim().toLowerCase())
+    //   aircraft => aircraft.info.countries.some(country => country.toLowerCase().startsWith(textInput.trim().toLowerCase()))
+    // );
+    // const inputSearchValueYear = prevArray.filter(
+    //   aircraft => String(aircraft.info.year).startsWith((textInput.trim()))
+    // );
+
+    // console.log("⏰⏰⏰inputSearchValueYear:", inputSearchValueYear);
+    // console.log("⏰⏰⏰inputSearchValueCountry:", inputSearchValueCountry);
+
+    // switch (this.state.radioButtonValue) {
+    //   case "brief":
+    //     this.setState({
+    //       inputSearchValue: textInput,
+    //       aircraftsArr: inputSearchValueBrief,
+    //       selectedModels: inputSearchValueBrief,
+    //     });
+    //     break;
+    //   case "nickname":
+    //     this.setState({
+    //       inputSearchValue: textInput,
+    //       aircraftsArr: inputSearchValueNickname,
+    //       selectedModels: inputSearchValueNickname,
+    //     });
+    //     break;
+    //   case "country":
+    //     this.setState({
+    //       inputSearchValue: textInput,
+    //       aircraftsArr: inputSearchValueCountry,
+    //       selectedModels: inputSearchValueCountry,
+    //     });
+    //     break;
+    //   case "year":
+    //     this.setState({
+    //       inputSearchValue: textInput,
+    //       aircraftsArr: inputSearchValueYear,
+    //       selectedModels: inputSearchValueYear,
+    //     });
+    //     break;
+    //   default:
+    //     fieldValue = "";
+    // };
+  };
+
+  //! Припинення debounce:
   componentWillUnmount() {
     this.debouncedSearch.cancel();
   };
