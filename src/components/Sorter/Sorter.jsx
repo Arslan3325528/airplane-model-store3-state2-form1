@@ -1,4 +1,5 @@
 // import React, { Component } from "react";
+import debounce from "lodash.debounce";
 import css from "./Sorter.module.css";
 
 
@@ -81,6 +82,7 @@ export function Sorter({
             // onChange={() => console.log("input")}
             // onChange={(event) => console.log(event.target.value)}
             onChange={onHandleChangeInputSearchValue}
+            // onChange={debounce(onHandleChangeInputSearchValue, 500)} //! ❌ Так не працює!!!
           />
 
           {/* <button

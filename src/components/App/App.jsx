@@ -277,6 +277,7 @@ export class App extends Component {
 
   
   //! Обробка введених даних для пошуку(фільтрації) карток за ім'ям або іншими параметрами
+  // handleChangeInputSearchValue = debounce((event) => {  //? ❌ Так не працює!!!
   handleChangeInputSearchValue = event => {
     console.log("Подія onChange в inputSearch");
     const textInput = event.target.value;
@@ -285,7 +286,10 @@ export class App extends Component {
       inputSearchValue: textInput,
     });
 
-    //! Запуск debounce з логікою фільтрації:
+    //todo: ❌ Без debounce:
+    // this.performSearch(textInput); 
+
+    //! ✅ Запуск debounce з логікою фільтрації:
     this.debouncedSearch(textInput);
 
     //! Виносимо логіку фільтрації в окремий метод performSearch
@@ -346,6 +350,8 @@ export class App extends Component {
     //     fieldValue = "";
     // };
   };
+  // }, 500); //? ❌ Так не працює!!!
+
 
   //! Припинення debounce:
   componentWillUnmount() {
