@@ -1,7 +1,10 @@
 import React, { Component } from "react";
 import debounce from "lodash.debounce";
 
-import data from '@/json/aircrafts.json';
+import data from '@/json/cards_10-10';
+import css from "./AppSearchDebounce.module.css";
+
+console.log("data:", data);
 
 export class AppSearchDebounce extends Component {
   state = {
@@ -13,7 +16,7 @@ export class AppSearchDebounce extends Component {
   }, 500);
 
   handleChange = (event) => {
-    const text = event.target.value; 
+    const text = event.target.value;
 
     this.setState({
       value: text,
@@ -28,11 +31,25 @@ export class AppSearchDebounce extends Component {
 
   render() {
     return (
-      <input
-        type="text"
-        value={this.state.value}
-        onChange={this.handleChange}
-      />
+      <>
+        <input
+          className={css.inputSearch}
+          type="text"
+          value={this.state.value}
+          onChange={this.handleChange}
+        />
+        <ul className={css.cards}>
+          {data.map(item =>
+            <li
+              className={css.card}
+              key={item.id}
+            >
+              <h3>{item.title}</h3>
+              <p>{item.body}</p>
+            </li>
+          )}
+        </ul>
+      </>
     );
   }
 }
