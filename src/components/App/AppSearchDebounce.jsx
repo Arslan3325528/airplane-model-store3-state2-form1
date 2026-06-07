@@ -14,6 +14,14 @@ export class AppSearchDebounce extends Component {
 
   debouncedSearch = debounce((text) => {
     console.log("⏰Пошук-debounce:", text);
+    //! Логіка фільтрації:
+    const filtered = data.filter(item =>
+      item.title.toLowerCase().includes(text.toLowerCase())
+    );
+
+    this.setState({
+      dataSearch: filtered,
+    });
   }, 500);
 
   handleChange = (event) => {
@@ -23,13 +31,15 @@ export class AppSearchDebounce extends Component {
       value: text,
     });
 
-    const filtered = data.filter(item =>
-      item.title.toLowerCase().includes(text.toLowerCase())
-        );
+    //! _____________Логіка фільтрації___________
+    // const filtered = data.filter(item =>
+    //   item.title.toLowerCase().includes(text.toLowerCase())
+    //     );
 
-    this.setState({
-      dataSearch: filtered,
-    });
+    // this.setState({
+    //   dataSearch: filtered,
+    // });
+    //! _________________________________________
 
     this.debouncedSearch(text);
   };
