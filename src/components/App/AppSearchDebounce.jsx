@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import debounce from "lodash.debounce";
+import debounce from "lodash.debounce"; //! 2.Імпорт:
 
 import data from '@/json/cards_10-10';
 import css from "./AppSearchDebounce.module.css";
@@ -12,17 +12,26 @@ export class AppSearchDebounce extends Component {
     dataSearch: data
   };
 
-  debouncedSearch = debounce((text) => {
-    console.log("⏰Пошук-debounce:", text);
-    //! Логіка фільтрації:
+
+  //! 3.Винесимо всю логіку фільтрації в окремий метод:
+  performSearch = textInput => {
+    //! _____________Логіка фільтрації___________
     const filtered = data.filter(item =>
-      item.title.toLowerCase().includes(text.toLowerCase())
+      item.title.toLowerCase().includes(textInput.toLowerCase())
     );
 
     this.setState({
       dataSearch: filtered,
     });
+    //! _________________________________________
+  }
+
+  //! 4.Створюємо debounce як class property:
+  debouncedSearch = debounce((text) => {
+    console.log("⏰Пошук-debounce:", text);
+    this.performSearch(text);
   }, 500);
+
 
   handleChange = (event) => {
     const text = event.target.value;
@@ -31,6 +40,7 @@ export class AppSearchDebounce extends Component {
       value: text,
     });
 
+    //! 6.1 .Переносимо всю логіку фільтрації в окремий метод performSearch:
     //! _____________Логіка фільтрації___________
     // const filtered = data.filter(item =>
     //   item.title.toLowerCase().includes(text.toLowerCase())
@@ -41,12 +51,16 @@ export class AppSearchDebounce extends Component {
     // });
     //! _________________________________________
 
+    //! 6.2 Запуск debounce з логікою фільтрації:
     this.debouncedSearch(text);
   };
 
+  
+  //! 5.Припинення debounce:
   componentWillUnmount() {
     this.debouncedSearch.cancel();
-  }
+  };
+
 
   render() {
     return (
@@ -71,4 +85,4 @@ export class AppSearchDebounce extends Component {
       </>
     );
   }
-}
+};
