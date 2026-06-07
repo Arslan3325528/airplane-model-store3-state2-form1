@@ -6,25 +6,27 @@ import css from "./AppSearchDebounce.module.css";
 
 console.log("data:", data);
 
+
 export class AppSearchDebounce extends Component {
   state = {
-    value: "",
-    dataSearch: data
+    inputValue: "",
+    filteredElements: data
   };
 
 
   //! 3.Винесимо всю логіку фільтрації в окремий метод:
   performSearch = textInput => {
     //! _____________Логіка фільтрації___________
-    const filtered = data.filter(item =>
+    const filteredArray = data.filter(item =>
       item.title.toLowerCase().includes(textInput.toLowerCase())
     );
 
     this.setState({
-      dataSearch: filtered,
+      filteredElements: filteredArray,
     });
     //! _________________________________________
   }
+
 
   //! 4.Створюємо debounce як class property:
   debouncedSearch = debounce((text) => {
@@ -33,21 +35,41 @@ export class AppSearchDebounce extends Component {
   }, 500);
 
 
+  // handleChange = debounce((event) => {  //? ❌ Так не працює!!!
+  //   const text = event.target.value;
+
+  //   this.setState({
+  //     inputValue: text,
+  //   });
+
+
+  //   //! _____________Логіка фільтрації___________
+  //   const filteredArray = data.filter(item =>
+  //     item.title.toLowerCase().includes(text.toLowerCase())
+  //   );
+
+  //   this.setState({
+  //     filteredElements: filteredArray,
+  //   });
+  //   //! _________________________________________
+  // }, 500); //? ❌ Так не працює!!!
+
+
   handleChange = (event) => {
     const text = event.target.value;
 
     this.setState({
-      value: text,
+      inputValue: text,
     });
 
     //! 6.1 .Переносимо всю логіку фільтрації в окремий метод performSearch:
     //! _____________Логіка фільтрації___________
-    // const filtered = data.filter(item =>
+    // const filteredArray = data.filter(item =>
     //   item.title.toLowerCase().includes(text.toLowerCase())
     //     );
 
     // this.setState({
-    //   dataSearch: filtered,
+    //   filteredElements: filteredArray,
     // });
     //! _________________________________________
 
@@ -55,7 +77,7 @@ export class AppSearchDebounce extends Component {
     this.debouncedSearch(text);
   };
 
-  
+
   //! 5.Припинення debounce:
   componentWillUnmount() {
     this.debouncedSearch.cancel();
@@ -63,16 +85,27 @@ export class AppSearchDebounce extends Component {
 
 
   render() {
+    const {
+      inputValue, //! значення inputSearch
+      filteredElements,  //! відфільтровані елементи 
+    } = this.state;
+
+    console.log("----------------------------------------------");
+    console.log("🔡Значення input:", inputValue);
+    console.log("Ⓜ️Масив відфільтрованих елементів:", filteredElements);
+    console.log("______________________________________________");
+    
     return (
       <>
         <input
           className={css.inputSearch}
           type="text"
-          value={this.state.value}
+          value={inputValue}
           onChange={this.handleChange}
+          // onChange={debounce(this.handleChange, 500)} //? ❌ Так не працює!!!
         />
         <ul className={css.cards}>
-          {this.state.dataSearch.map(item =>
+          {filteredElements.map(item =>
             <li
               className={css.card}
               key={item.id}
