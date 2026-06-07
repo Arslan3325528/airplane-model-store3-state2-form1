@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import debounce from "lodash.debounce";
 
+import data from '@/json/aircrafts.json';
+
 export class AppSearchDebounce extends Component {
   state = {
     value: "",
