@@ -15,6 +15,15 @@
     box-shadow: 0 0 5px #ff730066;
 }
 
+/* .counter {
+    width: max-content;
+    margin: 20px auto;
+    text-align: center;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #ff9100;
+} */
+
 .cards {
     display: flex;
     flex-wrap: wrap;
@@ -38,3 +47,26 @@
     margin: 0 0 10px;
     color: #007bff;
 }
+
+/** Анімація при появі */
+/* .card.show {
+    opacity: 1;
+    transform: translateY(0);
+} */
+
+/** Підсвічування тексту */
+/* .highlight {
+    background-color: yellow;
+    font-weight: bold;
+    color: #000;
+    border-radius: 3px;
+    padding: 0 2px;
+} */
+
+/** Нічого не знайдено... */
+/* .empty {
+    text-align: center;
+    margin-top: 40px;
+    color: #888;
+    font-size: 18px;
+} */

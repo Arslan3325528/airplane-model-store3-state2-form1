@@ -11,7 +11,8 @@ import {
   App,
   AppColorBox,
   AppLoginForm,
-  AppSearchDebounce
+  AppSearchDebounce,
+  AppSearchDebounceTextBacklight
 } from '@/components/App';
 
 
@@ -22,7 +23,8 @@ createRoot(document.getElementById('root')).render(
         {/* <App /> */}
         {/* <AppColorBox />  */}
         {/* <AppLoginForm onSubmit={values => console.log(values)} /> */}
-        <AppSearchDebounce />
+        {/* <AppSearchDebounce /> */}
+        <AppSearchDebounceTextBacklight />
       </ThemeProvider>
     </BrowserRouter>
   </StrictMode >
