@@ -6,11 +6,13 @@ import css from "./AppSearchDebounceTextBacklight.module.css";
 
 console.log("data:", data);
 
+const initialNumberCards = data.length;
 
 export class AppSearchDebounceTextBacklight extends Component {
   state = {
-    inputValue: "",
-    filteredElements: data
+    inputValue: "", //! значення inputSearch
+    filteredElements: data, //! відфільтровані елементи 
+    cardsCounter: initialNumberCards, //! кількість знайдених карток
   };
 
 
@@ -23,6 +25,7 @@ export class AppSearchDebounceTextBacklight extends Component {
 
     this.setState({
       filteredElements: filteredArray,
+      cardsCounter: filteredArray.length,
     });
     //! _________________________________________
   }
@@ -56,12 +59,14 @@ export class AppSearchDebounceTextBacklight extends Component {
   render() {
     const {
       inputValue, //! значення inputSearch
-      filteredElements,  //! відфільтровані елементи 
+      filteredElements,  //! відфільтровані елементи
+      cardsCounter, //! кількість знайдених карток
     } = this.state;
 
     console.log("----------------------------------------------");
     console.log("🔡🔰Значення input:", inputValue);
     console.log("Ⓜ️🔰Масив відфільтрованих елементів:", filteredElements);
+    console.log("🔢🔰Кількість знайдених карток:", cardsCounter);
     console.log("______________________________________________");
     
     return (
@@ -72,6 +77,7 @@ export class AppSearchDebounceTextBacklight extends Component {
           value={inputValue}
           onChange={this.handleChange}
         />
+        <p className={css.cardsCounter}>Знайдено: {cardsCounter} картки</p>
         <ul className={css.cards}>
           {filteredElements.map(item =>
             <li
