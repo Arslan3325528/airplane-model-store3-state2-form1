@@ -52,7 +52,9 @@ export class AppUncontrolledElementsForm extends Component {
 
         <button
           className={css.loginButton}
-          type="submit">Login
+          type="submit"
+        >
+          Login
         </button>
       </form>
     );

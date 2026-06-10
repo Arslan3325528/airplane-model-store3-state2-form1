@@ -28,7 +28,7 @@ createRoot(document.getElementById('root')).render(
         {/* <AppSearchDebounceTextBacklight /> */}
         {/* <AppUncontrolledElementsForm onSubmit={values => console.log(values)} /> */}
         {/* <AppControlledElementsForm /> */}
-        <AppComplexForms />
+        <AppComplexForms onSubmit={values => console.log(values)} />
       </ThemeProvider>
     </BrowserRouter>
   </StrictMode >
