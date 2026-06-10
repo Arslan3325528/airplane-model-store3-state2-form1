@@ -5,6 +5,16 @@
     gap: 10px;
 }
 
+.loginFormLabel {
+    font-size: large;
+    font-weight: 700;
+    color: #9d0000;
+}
+
+label input {
+    width: 19px;
+}
+
 .loginButton {
     padding: 5px 10px;
     border: 1px solid black;

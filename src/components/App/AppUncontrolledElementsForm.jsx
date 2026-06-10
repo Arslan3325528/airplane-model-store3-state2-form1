@@ -4,10 +4,10 @@
 // );
 
 import React, { Component } from "react";
-import css from "./AppLoginForm.module.css"; 
+import css from "./AppUncontrolledElementsForm.module.css";
 
 
-export class AppLoginForm extends Component {
+export class AppUncontrolledElementsForm extends Component {
   handleSubmit = evt => {
     evt.preventDefault();
     const form = evt.currentTarget;
@@ -24,11 +24,31 @@ export class AppLoginForm extends Component {
         className={css.loginForm}
         onSubmit={this.handleSubmit}
       >
-        <label htmlFor="username">Логін:</label>
-        <input type="text" name="login" id="username" />
+        <label
+          className={css.loginFormLabel}
+          htmlFor="username"
+        >
+          Логін:
+        </label>
+        <input
+          className={css.loginFormInput}
+          type="text"
+          name="login"
+          id="username"
+        />
 
-        <label htmlFor="pwd">Пароль:</label>
-        <input type="password" name="password" id="pwd" />
+        <label
+          className={css.loginFormLabel}
+          htmlFor="pwd"
+        >
+          Пароль:
+        </label>
+        <input
+          className={css.loginFormInput}
+          type="password"
+          name="password"
+          id="pwd"
+        />
 
         <button
           className={css.loginButton}
@@ -37,9 +57,9 @@ export class AppLoginForm extends Component {
       </form>
     );
   }
-}
+};
 
 // ReactDOM.render(
-//   <AppLoginForm onSubmit={values => console.log(values)} />,
+//   <AppUncontrolledElementsForm onSubmit={values => console.log(values)} />,
 //   document.getElementById("root")
 // );
