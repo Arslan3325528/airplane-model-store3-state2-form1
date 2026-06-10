@@ -13,6 +13,7 @@ import {
   AppSearchDebounce, //! Пошук елементів + Debounce
   AppSearchDebounceTextBacklight, //! Пошук елементів + Debounce + Підсвічування тексту
   AppUncontrolledElementsForm, //! 4.4.1.Неконтрольовані елементи форм
+  AppControlledElementsForm, //! 4.4.2.Контрольовані елементи форм
 } from '@/components/App';
 
 
@@ -24,7 +25,8 @@ createRoot(document.getElementById('root')).render(
         {/* <AppColorBox />  */}
         {/* <AppSearchDebounce /> */}
         {/* <AppSearchDebounceTextBacklight /> */}
-        <AppUncontrolledElementsForm onSubmit={values => console.log(values)} />
+        {/* <AppUncontrolledElementsForm onSubmit={values => console.log(values)} /> */}
+        <AppControlledElementsForm />
       </ThemeProvider>
     </BrowserRouter>
   </StrictMode >
