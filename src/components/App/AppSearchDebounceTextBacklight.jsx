@@ -56,6 +56,76 @@ export class AppSearchDebounceTextBacklight extends Component {
   };
 
 
+  //* Функція підсвічування тексту
+  highlightText = (text, keyword) => {
+    if (!keyword) return text;
+
+    const regex = new RegExp(`(${keyword})`, "gi");
+
+    return text
+      .split(regex)
+      .map((part, index) =>
+        part.toLowerCase() === keyword.toLowerCase()
+          ? (
+            <span
+              key={index}
+              className={css.highlight}
+            >
+              {part}
+            </span>
+          )
+          : part
+      );
+  };
+
+  //* Якщо користувач буде вводити: . + * ? [ ] ( )
+  //* то RegExp потрібно екранувати допоміжною функцією:
+  escapeRegExp = (str) => {
+    return str.replace(
+      /[.*+?^${}()|[\]\\]/g,
+      "\\$&"
+    );
+  };
+
+  //* Використання RegExp з экрануванням допоміжною функцією:
+  highlightTextProtection = (text, keyword) => {
+    if (!keyword) return text;
+
+    const escapedKeyword = this.escapeRegExp(keyword);
+
+    const regex = new RegExp(
+      `(${escapedKeyword})`,
+      "gi"
+    );
+
+    return text
+      .split(regex)
+      .map((part, index) =>
+        part.toLowerCase() === keyword.toLowerCase()
+          ? (
+            <span
+              key={index}
+              className={css.highlight}
+            >
+              {part}
+            </span>
+          )
+          : part
+      );
+  };
+
+  //* Функція для відмінювання слова “картка”
+  getWordForm = (number, words) => {
+    const n = Math.abs(number) % 100;
+    const n1 = n % 10;
+    if (n > 10 && n < 20) return words[2];
+    if (n1 > 1 && n1 < 5) return words[1];
+    if (n1 === 1) return words[0];
+    return words[2];
+  };
+
+
+
   render() {
     const {
       inputValue, //! значення inputSearch
@@ -68,7 +138,7 @@ export class AppSearchDebounceTextBacklight extends Component {
     console.log("Ⓜ️🔰Масив відфільтрованих елементів:", filteredElements);
     console.log("🔢🔰Кількість знайдених карток:", cardsCounter);
     console.log("______________________________________________");
-    
+
     return (
       <>
         <input
@@ -77,14 +147,19 @@ export class AppSearchDebounceTextBacklight extends Component {
           value={inputValue}
           onChange={this.handleChange}
         />
-        <p className={css.cardsCounter}>Знайдено: {cardsCounter} картки</p>
+        {/* <p className={css.cardsCounter}>Знайдено: {cardsCounter} картки</p> */}
+        <p className={css.cardsCounter}>Знайдено: {cardsCounter} {this.getWordForm(cardsCounter, ['картка', 'картки', 'карток'])}</p>
         <ul className={css.cards}>
           {filteredElements.map(item =>
             <li
               className={css.card}
               key={item.id}
             >
-              <h3>{item.title}</h3>
+              {/* <h3>{item.title}</h3> */}
+              {/* //* Використання RegExp без захисту від введення символів: . + * ? [ ] ( ): */}
+              {/* <h3>{this.highlightText(item.title, inputValue)}</h3> */}
+              {/* //* Використання RegExp з экрануванням допоміжною функцією: */}
+              <h3>{this.highlightTextProtection(item.title, inputValue)}</h3>
               <p>{item.body}</p>
             </li>
           )}
