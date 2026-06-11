@@ -18,6 +18,7 @@ export class AppControlledElementsForm extends Component {
     const text = event.target.value;
 
     this.setState({ inputValue: text });
+    // this.setState({ inputValue: text + text }); //! візуалізація контролю за введенням значень в інпут!
   };
 
   render() {
