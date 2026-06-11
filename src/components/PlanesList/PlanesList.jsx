@@ -12,6 +12,7 @@ export function PlanesList({
     inputSearchValue, //! значення inputSearch
     inputSearchValueTrigger, //! тригер для коректної роботи інпуту після очищення
     // onHighlightTextProtection, //! функція підсвічування тексту та допоміжна функція ---> ВИНОСИМО в utils
+    radioButtonValue, //! ⭕️Значення параметра для пошуку/фільтрації радіо-кнопки
 })
 {
     return (
@@ -45,7 +46,8 @@ export function PlanesList({
                                 onActiveId={onActiveId}
                                 indicesArray={indicesArray}
                                 // onHighlightTextProtection={onHighlightTextProtection} //! ---> ВИНОСИМО в utils
-                                inputSearchValue={inputSearchValue}
+                                inputSearchValue={inputSearchValue} //! значення inputSearch
+                                radioButtonValue={radioButtonValue} //! ⭕️ значення параметра для пошуку/фільтрації радіо-кнопки
                             />
                         </li>
                     )}

@@ -45,6 +45,7 @@ export function Planes({
   onActiveId,
   // onHighlightTextProtection, //! функція підсвічування тексту та допоміжна функція ---> ВИНОСИМО в utils
   inputSearchValue, //! значення inputSearch
+  radioButtonValue, //! ⭕️ значення параметра для пошуку/фільтрації радіо-кнопки
 })
 {
   //! Рахуємо кількість моделей <numberModels> виходячи з наявності фактичної ціни
@@ -61,7 +62,7 @@ export function Planes({
       <p className={css.textField}><FcTrademark size={iconSize.md} className={css.icon} /> Повна назва: <span className={css.boldStyle} >{nameFull}</span></p>
       <p className={css.textField}><GiCommercialAirplane size={iconSize.md} className={css.icon} /> Тип: <span className={css.textFieldValue}>{type}</span></p>
       <p className={css.textField}><GiCurlyMask size={iconSize.md} className={css.icon} /> Прізвисько: <span className={css.textFieldValue}>{nickname}</span></p>
-      <p className={css.textField}><GiCurlyMask size={iconSize.md} className={css.icon} /> Прізвисько: <span className={css.textFieldValue}>{onHighlightTextProtection(nickname, inputSearchValue)}</span></p>
+      <p className={css.textField}><GiCurlyMask size={iconSize.md} className={css.icon} /> Прізвисько: <span className={css.textFieldValue}>{onHighlightTextProtection(nickname, inputSearchValue, radioButtonValue)}</span></p>
       {/* <p className={css.textField}><CiGlobe size={iconSize.md} className={css.icon} /> Країна виробник: <span className={css.textFieldValue}>{country}</span></p> */}
       <p className={css.textField}>
         <CiGlobe size={iconSize.md} className={css.icon} /> Країна виробник: <span className={css.textFieldValue}>

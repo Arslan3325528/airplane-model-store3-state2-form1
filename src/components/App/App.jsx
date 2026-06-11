@@ -530,12 +530,13 @@ export class App extends Component {
           <PlanesList
             // items={aircraftsArr}
             //! Використання логіки тригеру: "якщо активна кнопка «Кошик»" 
-            items={isCartButton ? selectedModels : aircraftsArr} 
+            items={isCartButton ? selectedModels : aircraftsArr}
             indicesArray={indicesSelectedModels}
             onActiveId={this.getActiveId}
             inputSearchValue={inputSearchValue} //! значення inputSearch
             inputSearchValueTrigger={inputSearchValueTrigger} //! тригер для коректної роботи інпуту після очищення
             // onHighlightTextProtection={this.highlightTextProtection} //! функція підсвічування тексту та допоміжна функція ---> ВИНОСИМО в utils
+            radioButtonValue={radioButtonValue} //! ⭕️ значення параметра для пошуку/фільтрації радіо-кнопки
           />
         </Section >
       </>
