@@ -92,7 +92,7 @@ export class AppSearchDebounceTextBacklight extends Component {
     );
   };
 
-  //* Використання RegExp з экрануванням допоміжною функцією:
+  //* Використання RegExp з екрануванням допоміжною функцією:
   highlightTextProtection = (text, keyword) => {
     if (!keyword) return text;
 
@@ -163,7 +163,7 @@ export class AppSearchDebounceTextBacklight extends Component {
               {/* <h3>{item.title}</h3> */}
               {/* //* Використання RegExp без захисту від введення символів: . + * ? [ ] ( ): */}
               {/* <h3>{this.highlightText(item.title, inputValue)}</h3> */}
-              {/* //* Використання RegExp з экрануванням допоміжною функцією: */}
+              {/* //* Використання RegExp з екрануванням допоміжною функцією: */}
               <h3>{this.highlightTextProtection(item.title, inputValue)}</h3>
               <p>{item.body}</p>
             </li>
