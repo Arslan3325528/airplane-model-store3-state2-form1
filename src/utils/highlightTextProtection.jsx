@@ -2,7 +2,7 @@ import css from "@/components/Planes/Planes.module.css";
 
 //! Функція підсвічування тексту та допоміжна функція
 //* Використання RegExp з экрануванням допоміжною функцією:
-export function onHighlightTextProtection(text, keyword, radioButtonValue) {
+export function onHighlightTextProtection(text, keyword, radioButtonValue = "nickname") {
   if (!keyword) return text;
 
   const escapedKeyword = escapeRegExp(keyword);
