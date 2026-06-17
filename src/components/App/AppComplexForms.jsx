@@ -1,5 +1,5 @@
 // console.log(
-//   "%c 4.4.3.Складні форми + \n 4.4.4.Генерація Id елементів форми + \n 4.4.5.Радіокнопки + \n 4.4.6.Чекбокси" ,
+//   "%c 4.4.3.Складні форми + \n 4.4.4.Генерація Id елементів форми + \n 4.4.5.Радіокнопки + \n 4.4.6.Чекбокси  + \n 4.4.7.Селект ",
 //   "color: white; background-color: #D33F49",
 // );
 
@@ -7,7 +7,7 @@ import React, { Component } from "react";
 import { ComplexForms } from '@/components/ComplexForms/ComplexForms.jsx';
 import { ComplexFormsGenerationID } from '@/components/ComplexFormsGenerationID/ComplexFormsGenerationID.jsx';
 import { ComplexFormsGenerationIDRadioButton } from '@/components/ComplexFormsGenerationIDRadioButton/ComplexFormsGenerationIDRadioButton.jsx';
-import { ComplexFormsGenerationIDRadioButtonCheckboxes } from '@/components/ComplexFormsGenerationIDRadioButtonCheckboxes/ComplexFormsGenerationIDRadioButtonCheckboxes.jsx';
+import { ComplexFormsGenerationIDRadioButtonCheckboxesSelect } from '@/components/ComplexFormsGenerationIDRadioButtonCheckboxesSelect/ComplexFormsGenerationIDRadioButtonCheckboxesSelect.jsx';
 
 // import css from "./AppComplexForms.module.css";
 
@@ -56,8 +56,8 @@ export class AppComplexForms extends Component {
         {/* <ComplexFormsGenerationID onSubmit={this.submitForm} /> */}
         {/*//! + 4.4.5.Радіокнопки */}
         {/* <ComplexFormsGenerationIDRadioButton onSubmit={this.submitForm} /> */}
-        {/*//! + 4.4.6.Чекбокси */}
-        <ComplexFormsGenerationIDRadioButtonCheckboxes onSubmit={this.submitForm} />
+        {/*//! + 4.4.6.Чекбокси + 4.4.7.Селект */}
+        <ComplexFormsGenerationIDRadioButtonCheckboxesSelect onSubmit={this.submitForm} />
       </>
     );
   }

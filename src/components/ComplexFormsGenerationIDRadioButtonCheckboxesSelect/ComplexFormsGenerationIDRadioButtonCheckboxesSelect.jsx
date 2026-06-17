@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { nanoid } from 'nanoid' //! для генерації Id елементів форми
-import css from "./ComplexFormsGenerationIDRadioButtonCheckboxes.module.css";
+import css from "./ComplexFormsGenerationIDRadioButtonCheckboxesSelect.module.css";
 
 const INITIAL_STATE = {
     inputLogin: "",
@@ -11,7 +11,7 @@ const INITIAL_STATE = {
 };
 
 
-export class ComplexFormsGenerationIDRadioButtonCheckboxes extends Component {
+export class ComplexFormsGenerationIDRadioButtonCheckboxesSelect extends Component {
     state = { ...INITIAL_STATE };
 
     //! Для генерації Id елементів форми:
