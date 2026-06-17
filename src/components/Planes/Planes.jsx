@@ -61,7 +61,7 @@ export function Planes({
       <a href={wikipediaPage} target="_blank" rel="noreferrer noopener"><img src={urlMain} alt={nameBrief} /></a>
       <p className={css.textField}><FcTrademark size={iconSize.md} className={css.icon} /> Повна назва: <span className={css.boldStyle} >{nameFull}</span></p>
       <p className={css.textField}><GiCommercialAirplane size={iconSize.md} className={css.icon} /> Тип: <span className={css.textFieldValue}>{type}</span></p>
-      <p className={css.textField}><GiCurlyMask size={iconSize.md} className={css.icon} /> Прізвисько: <span className={css.textFieldValue}>{nickname}</span></p>
+      {/* <p className={css.textField}><GiCurlyMask size={iconSize.md} className={css.icon} /> Прізвисько: <span className={css.textFieldValue}>{nickname}</span></p> */}
       <p className={css.textField}><GiCurlyMask size={iconSize.md} className={css.icon} /> Прізвисько: <span className={css.textFieldValue}>{onHighlightTextProtection(nickname, inputSearchValue, radioButtonValue)}</span></p>
       {/* <p className={css.textField}><CiGlobe size={iconSize.md} className={css.icon} /> Країна виробник: <span className={css.textFieldValue}>{country}</span></p> */}
       <p className={css.textField}>
