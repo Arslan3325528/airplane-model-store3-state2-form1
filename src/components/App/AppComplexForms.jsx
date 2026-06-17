@@ -45,10 +45,10 @@ export class AppComplexForms extends Component {
           // onSubmit={values => console.log(values)}
           onSubmit={this.submitForm}
         /> */}
-        {/*//! 4.4.4.Генерація Id елементів форми */}
+        {/*//! + 4.4.4.Генерація Id елементів форми */}
         {/* <ComplexFormsGenerationID onSubmit={this.submitForm} /> */}
         {/* <ComplexFormsGenerationID onSubmit={this.submitForm} /> */}
-        {/*//! 4.4.5.Радіокнопки */}
+        {/*//! + 4.4.5.Радіокнопки */}
         <ComplexFormsGenerationIDRadioButton
           onSubmit={this.submitForm}
         />

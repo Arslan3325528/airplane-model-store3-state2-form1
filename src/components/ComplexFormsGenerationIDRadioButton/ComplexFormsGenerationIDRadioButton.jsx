@@ -97,6 +97,7 @@ export class ComplexFormsGenerationIDRadioButton extends Component {
                     onChange={this.handleChange}
                 />
 
+                {/*//! + 4.4.5.Радіокнопки */}
                 <label>
                     <input
                         type="radio"
