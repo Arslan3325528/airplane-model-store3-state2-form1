@@ -55,8 +55,8 @@ export class AppComplexForms extends Component {
   // };
 
   handleChange = event => {
-    console.log("event.currentTarget.value:", event.currentTarget);
-    console.log("event.currentTarget.value:", event.currentTarget.name);
+    console.log("event.currentTarget:", event.currentTarget);
+    console.log("event.currentTarget.name:", event.currentTarget.name);
     console.log("event.currentTarget.value:", event.currentTarget.value);
 
     //! Використовуємо властивості об'єкта, що обчислюються
