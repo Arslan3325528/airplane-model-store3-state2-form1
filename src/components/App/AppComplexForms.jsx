@@ -16,6 +16,7 @@ export class AppComplexForms extends Component {
     formInputLogin: "",
     formInputPassword: "",
     formRadioButtonExperience: "",
+    formRadioButtonAge: ""
   };
 
   submitForm = (data) => {
@@ -24,6 +25,7 @@ export class AppComplexForms extends Component {
       formInputLogin: data.inputLogin,
       formInputPassword: data.inputPassword,
       formRadioButtonExperience: data.experience,
+      formRadioButtonAge: data.age
     });
   };
 
@@ -31,13 +33,15 @@ export class AppComplexForms extends Component {
     const {
       formInputLogin,
       formInputPassword,
-      formRadioButtonExperience
+      formRadioButtonExperience,
+      formRadioButtonAge
     } = this.state;
 
     console.log("----------------------------------------------");
     console.log("✅Значення в App formInputLogin:", formInputLogin);
     console.log("✅Значення в App formInputPassword:", formInputPassword);
     console.log("✅Значення в App formRadioButtonExperience:", formRadioButtonExperience);
+    console.log("✅Значення в App formRadioButtonAge:", formRadioButtonAge);
     console.log("______________________________________________");
 
     return (

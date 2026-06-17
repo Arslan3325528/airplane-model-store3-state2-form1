@@ -6,6 +6,7 @@ const INITIAL_STATE = {
     inputLogin: "",
     inputPassword: "",
     experience: "junior",
+    age: "",
     licence: false
 };
 
@@ -48,15 +49,10 @@ export class ComplexFormsGenerationIDRadioButtonCheckboxes extends Component {
     handleChangeCheckbox = event => {
         console.log("event.currentTarget.checked:", event.currentTarget.checked);
 
-
         // //! Деструктуризуємо:
-        // const { name, value } = event.currentTarget;
-        // //! Зберігаємо значення інпутів в state, використовуючи властивості об'єкта, що обчислюються
-        // this.setState({
-        //     [name]: value,
-        // });
+        const { checked } = event.currentTarget;
 
-        this.setState({ licence: event.currentTarget.checked});
+        this.setState({ licence: checked });
     };
 
 
@@ -65,6 +61,7 @@ export class ComplexFormsGenerationIDRadioButtonCheckboxes extends Component {
             inputLogin,
             inputPassword,
             experience,
+            age,
             licence
         } = this.state;
 
@@ -72,6 +69,7 @@ export class ComplexFormsGenerationIDRadioButtonCheckboxes extends Component {
         console.log("🛅Значення inputLogin:", inputLogin);
         console.log("🛅Значення inputPassword:", inputPassword);
         console.log("🛅Значення experience:", experience);
+        console.log("🛅Значення age:", age);
         console.log("🛅Значення licence:", licence);
         console.log("______________________________________________");
 
@@ -147,6 +145,21 @@ export class ComplexFormsGenerationIDRadioButtonCheckboxes extends Component {
                         checked={this.state.experience === "senior"}
                         onChange={this.handleChange}
                     />
+                </label>
+
+                {/*//! + 4.4.7.Селект */}
+                <label>
+                    Ваш вік
+                    <select
+                        name="age"
+                        value={age}
+                        onChange={this.handleChange}
+                    >
+                        <option value="" disabled>...</option>
+                        <option value="18-25">18-25</option>
+                        <option value="26-35">26-35</option>
+                        <option value="36+">36+</option>
+                    </select>
                 </label>
 
                 {/*//! + 4.4.6.Чекбокс */}
