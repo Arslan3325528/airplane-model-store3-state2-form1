@@ -68,6 +68,9 @@ label input {
     padding: 5px;
     display: inline-flex;
     font-size: 1.5rem;
-    border: 6px lightgreen solid;
+    /* border: 6px lightgreen solid; */
+    border: 6px solid #055c00e9;
     border-radius: 12px;
+    background-color: #d1e59f;
+    outline: none;
 }

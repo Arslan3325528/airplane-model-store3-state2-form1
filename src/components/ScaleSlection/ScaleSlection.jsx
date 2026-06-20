@@ -1,35 +1,49 @@
-// import React, { Component } from "react";
+import React, { Component } from "react";
 import css from "./ScaleSlection.module.css";
 
 
 //? Підняття стану
-//! Звичайний компонент
-export function ScaleSlection({
-  // inputSearchValue, //! початкове значення inputSearch
-  // onHandleChangeInputSearchValue,
-  // isCartOn, //! тригер: "якщо активна кнопка «Кошик»"
-  // numberOfSelectedModels, //! кількість обраних моделей
-  // onHandleChangeRadioButtonValue,
-  // radioButtonValue,  //! значення параметра для пошуку/фільтрації радіо-кнопки
-  // inputSearchPlaceholder, //! значення placeholder для inputSearch
-})
-{
-  // console.log("(!isCartButton):", !isCartOn);
-  // console.log("(isCartButton):", isCartOn);
-  // console.log("numberOfSelectedModels:", !!numberOfSelectedModels);
-  // console.log("(!isCartButton || numberOfSelectedModels):", (!isCartOn || numberOfSelectedModels));
-  return (
-    <>
-      {/* {(!isCartOn || numberOfSelectedModels) && */}
-      <div className={css.scaleSlectionBox}>
-        <h3 className={css.scaleSlectionTitle}>Оберіть масштаб моделі:</h3>
+//! Компонент-клас
+export class ScaleSlection extends Component {
+  state = {
+    modelScale: "all" //! масштаб моделі
+  };
+
+  handleChangeModelScale = (event) => {
+    // console.log("Зміна масштабу моделі");
+    // console.log("event.currentTarget:", event.currentTarget);
+    // console.log("event.currentTarget.name:", event.currentTarget.name);
+    // console.log("event.currentTarget.value:", event.currentTarget.value);
+
+    //! Деструктуризуємо:
+    const { name, value } = event.currentTarget;
+    //! Зберігаємо значення інпутів в state, використовуючи властивості об'єкта, що обчислюються
+    this.setState({
+      [name]: value,
+    });
+  }
+
+  render() {
+    const {
+      modelScale, //! масштаб моделі
+    } = this.state;
+
+    console.log("******************************************************");
+    console.log("ℹ️Масштаб моделі :", modelScale);
+    console.log("******************************************************");
+
+    return (
+      <>
+        {/* {(!isCartOn || numberOfSelectedModels) && */}
+        <div className={css.scaleSlectionBox}>
+          <h3 className={css.scaleSlectionTitle}>Оберіть масштаб моделі:</h3>
           <label>
             {/* масштаб моделі */}
             <select
               className={css.scaleSlectionSelect}
-              name="scale"
-              // value={modelScale}
-              // onChange={this.handleChange}
+              name="modelScale"
+              value={modelScale}
+              onChange={this.handleChangeModelScale}
             >
               <option className={css.scaleSlectionOption} value="all">Всі</option>
               <option className={css.scaleSlectionOption} value="114">1:114</option>
@@ -41,7 +55,8 @@ export function ScaleSlection({
             </select>
           </label>
         </div>
-      {/* } */}
-    </>
-  )
+        {/* } */}
+      </>
+    )
+  }
 };

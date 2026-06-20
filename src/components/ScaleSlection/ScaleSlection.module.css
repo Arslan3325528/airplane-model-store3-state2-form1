@@ -30,6 +30,10 @@
     font-size: large;
         font-weight: 700;
         color: darkblue;
+    border: 6px solid #055c00e9;
+    border-radius: 8px;
+    background-color: #d1e59f;
+    outline: none;
 }
 
 .scaleSlectionOption {
