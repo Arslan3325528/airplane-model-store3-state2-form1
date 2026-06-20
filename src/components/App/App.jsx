@@ -112,7 +112,8 @@ export class App extends Component {
       activeButton: "allButton", //! візуалізація активної кнопки
       isCartButton: false, //! тригер: "якщо активна кнопка «Кошик»"
       // totalTypes: aircrafts.length, //! кількість типів ЛА (всіх літальних апаратів)
-      aircraftsArrAfterFiltration: aircrafts,  //! дубльоване значення aircraftsArr після фільтрації
+      // aircraftsArrAfterFiltration: aircrafts,  //! дубльоване значення aircraftsArr після фільтрації
+      aircraftsArrAfterFiltration: this.state.modelsSelectedScale,  //! дубльоване значення aircraftsArr після фільтрації з додаванням вибору моделей певного масштабу
       inputSearchValue: "", //! значення inputSearch
     });
     // console.log("✈️✈️✈️totalModels:", this.getTotalModels()); //! тимчасово
@@ -376,7 +377,7 @@ export class App extends Component {
 
     this.setState({
       inputSearchValue: "",
-      aircraftsArr: this.state.aircraftsArrAfterFiltration,
+      aircraftsArr: this.state.aircraftsArrAfterFiltration, //! ❓❓❓
       selectedModels:
         this.state.indicesSelectedModels.flatMap(id => aircrafts.filter((el) => id === el.id))
         .sort((a, b) => a.name.brief.localeCompare(b.name.brief)) //! з сортуванням за полем "name.brief",
@@ -450,9 +451,29 @@ export class App extends Component {
   getModelsSelectedScale = modelsScale => {
     // console.log("📗Масив моделей обраного масштабу :", modelsScale);
 
+    //! Умови за допомогою switch, які відобрадають стан кнопок-фільтрів
+    let result = [];
+    switch (this.state.activeButton) {
+      case "allButton":
+        result = modelsScale;
+        break;
+      case "planeButton":
+        result = modelsScale.filter(aircraft => aircraft.aircraftType === "plane");
+        break;
+      case "biplaneButton":
+        result = modelsScale.filter(aircraft => aircraft.aircraftType === "biplane");
+        break;
+      case "helicopterButton":
+        result = modelsScale.filter(aircraft => aircraft.aircraftType === "helicopter");
+        break;
+      default:
+        fieldValue = "";
+    };
+
     this.setState({
       modelsSelectedScale: modelsScale,
-      aircraftsArr: modelsScale,
+      aircraftsArr: result,
+      aircraftsArrAfterFiltration: result,
     });
   };
     
