@@ -43,6 +43,10 @@ export class ScaleSelection extends Component {
       // modelsSelectedScale //! масив моделей обраного масштабу
     } = this.state;
 
+    const {
+      isLocked //! тригер: "якщо активна кнопка «Кошик»"
+    } = this.props;
+
     console.log("******************************************************");
     console.log("📕Масштаб моделі:", modelScale);
     // console.log("📕Масив моделей обраного масштабу:", modelsSelectedScale);
@@ -60,6 +64,7 @@ export class ScaleSelection extends Component {
               name="modelScale"
               value={modelScale}
               onChange={this.handleChangeModelScale}
+              disabled={isLocked} //! блокування, якщо активна кнопка «Кошик»
             >
               <option className={css.scaleSelectionOption} value="all">Всі</option>
               <option className={css.scaleSelectionOption} value="200">1:200</option>

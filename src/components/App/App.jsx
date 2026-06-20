@@ -534,6 +534,7 @@ export class App extends Component {
       <>
         {/*//!  Вибір масштабу моделі */}
         <ScaleSelection
+          isLocked={isCartButton} //! тригер: "якщо активна кнопка «Кошик»"
           onGetModelsSelectedScale={this.getModelsSelectedScale} 
         />
 
