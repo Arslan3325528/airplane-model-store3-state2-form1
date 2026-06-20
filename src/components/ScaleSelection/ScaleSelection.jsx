@@ -10,7 +10,7 @@ import css from "./ScaleSelection.module.css";
 export class ScaleSelection extends Component {
   state = {
     modelScale: "all", //! масштаб моделі
-    modelsSelectedScale: [] //! масив моделей обраного масштабу
+    // modelsSelectedScale: [] //! масив моделей обраного масштабу
   };
 
   handleChangeModelScale = (event) => {
@@ -22,29 +22,30 @@ export class ScaleSelection extends Component {
     //! Деструктуризуємо:
     const { name, value } = event.currentTarget;
 
-    // const inputSearchValueCountry = prevArray.filter(
-    //   // aircraft => aircraft.info.country.toLowerCase().startsWith(textInput.trim().toLowerCase())
-    //   aircraft => aircraft.info.countries.some(country => country.toLowerCase().startsWith(textInput.trim().toLowerCase()))
-    // );
-    const modelsSelectedScale = aircrafts.filter(aircraft => aircraft.model.scale.some(item => item === Number(value)));
-
+    //! Знаходимо масив моделей обраного масштабу
+    const modelsSelectedScale =
+      value === "all"
+      ? aircrafts
+      : aircrafts.filter(aircraft => aircraft.model.scale.some(item => item === Number(value)));
 
     //! Зберігаємо значення інпутів в state, використовуючи властивості об'єкта, що обчислюються
     this.setState({
       [name]: value,
-      modelsSelectedScale,
+      // modelsSelectedScale,
     });
+
+    this.props.onGetModelsSelectedScale(modelsSelectedScale); //! підняття стану + передача modelsSelectedScale в App.jsx
   }
 
   render() {
     const {
       modelScale, //! масштаб моделі
-      modelsSelectedScale //! масив моделей обраного масштабу
+      // modelsSelectedScale //! масив моделей обраного масштабу
     } = this.state;
 
     console.log("******************************************************");
-    console.log("📕Масштаб моделі :", modelScale);
-    console.log("📕Масив моделей обраного масштабу :", modelsSelectedScale);
+    console.log("📕Масштаб моделі:", modelScale);
+    // console.log("📕Масив моделей обраного масштабу:", modelsSelectedScale);
     console.log("******************************************************");
 
     return (

@@ -55,6 +55,7 @@ export class App extends Component {
     radioButtonValue: "brief", //! значення параметра для пошуку/фільтрації радіо-кнопки
     inputSearchPlaceholder: "Введіть назву ЛА", //! значення placeholder для inputSearch
     inputSearchValueTrigger: false, //! тригер для коректної роботи інпуту після очищення
+    modelsSelectedScale: aircrafts //! масив моделей обраного масштабу
   };
 
   //! 2.localStorage - Створення запису в localStorage під час першого запуску якщо його немає
@@ -105,7 +106,8 @@ export class App extends Component {
     console.log("Клік в кнопку ВСІ");
     console.log("allAircrafts:", aircrafts);
     this.setState({
-      aircraftsArr: aircrafts,
+      // aircraftsArr: aircrafts,
+      aircraftsArr: this.state.modelsSelectedScale, //! з додаванням вибору моделей певного масштабу
       aircraftsTitle: "Магазин моделей літальних апаратів",
       activeButton: "allButton", //! візуалізація активної кнопки
       isCartButton: false, //! тригер: "якщо активна кнопка «Кошик»"
@@ -118,7 +120,8 @@ export class App extends Component {
 
   planeFiltration = () => {
     console.log("Клік в кнопку Літаки");
-    const onlyPlanes = aircrafts.filter(aircraft => aircraft.aircraftType === "plane");
+    // const onlyPlanes = aircrafts.filter(aircraft => aircraft.aircraftType === "plane");
+    const onlyPlanes = this.state.modelsSelectedScale.filter(aircraft => aircraft.aircraftType === "plane"); //! з додаванням вибору моделей певного масштабу
     console.log("onlyPlanes:", onlyPlanes);
     this.setState({
       aircraftsArr: onlyPlanes,
@@ -133,7 +136,8 @@ export class App extends Component {
 
   biplaneFiltration = () => {
     console.log("Клік в кнопку Біплани");
-    const onlyBiplane = aircrafts.filter(aircraft => aircraft.aircraftType === "biplane");
+    // const onlyBiplane = aircrafts.filter(aircraft => aircraft.aircraftType === "biplane");
+    const onlyBiplane = this.state.modelsSelectedScale.filter(aircraft => aircraft.aircraftType === "biplane"); //! з додаванням вибору моделей певного масштабу
     console.log("onlyBiplane:", onlyBiplane);
     this.setState({
       aircraftsArr: onlyBiplane,
@@ -148,7 +152,8 @@ export class App extends Component {
 
   helicopterFiltration = () => {
     console.log("Клік в кнопку Вертольоти");
-    const onlyHelicopters = aircrafts.filter(aircraft => aircraft.aircraftType === "helicopter");
+    // const onlyHelicopters = aircrafts.filter(aircraft => aircraft.aircraftType === "helicopter");
+    const onlyHelicopters = this.state.modelsSelectedScale.filter(aircraft => aircraft.aircraftType === "helicopter"); //! з додаванням вибору моделей певного масштабу
     console.log("onlyHelicopters:", onlyHelicopters);
     this.setState({
       aircraftsArr: onlyHelicopters,
@@ -412,7 +417,7 @@ export class App extends Component {
   //     "\\$&"
   //   );
   // };
-  
+
   //! ---> ВИНОСИМО в utils
   //* Використання RegExp з экрануванням допоміжною функцією:
   // highlightTextProtection = (text, keyword) => {
@@ -441,6 +446,15 @@ export class App extends Component {
   //     );
   // };
 
+  //! Функція яка отримує масив моделей обраного масштабу з компоненту ScaleSelection та додає його в state
+  getModelsSelectedScale = modelsScale => {
+    // console.log("📗Масив моделей обраного масштабу :", modelsScale);
+
+    this.setState({
+      modelsSelectedScale: modelsScale,
+    });
+  };
+    
   render() {
     const {
       aircraftsArr,
@@ -455,6 +469,7 @@ export class App extends Component {
       radioButtonValue, //! значення параметра для пошуку/фільтрації радіо - кнопки
       inputSearchPlaceholder, //! значення placeholder для inputSearch
       inputSearchValueTrigger, //! тригер для коректної роботи інпуту після очищення
+      modelsSelectedScale, //! масив моделей обраного масштабу
     } = this.state;
 
     //! Рахуємо кількість типів ЛА
@@ -483,21 +498,21 @@ export class App extends Component {
     
 
     console.log("----------------------------------------------");
-    console.log("ℹ️Mасив індексів обраних моделей :", indicesSelectedModels);
+    console.log("ℹ️Mасив індексів обраних моделей ", indicesSelectedModels);
     console.log("Ⓜ️Масив обраних моделей:", selectedModels);
     console.log("🔢Кількість обраних моделей:", numberOfModels);
     console.log("🔡Значення inputSearch:", inputSearchValue);
     console.log("Ⓜ️Ⓜ️Дубльоване значення aircraftsArr після фільтрації:", aircraftsArrAfterFiltration);
     console.log("⭕️Значення параметра для пошуку/фільтрації радіо-кнопки:", radioButtonValue);
     console.log("🔲Значення placeholder для inputSearch:", inputSearchPlaceholder);
+    console.log("📕📗Масив моделей обраного масштабу:", modelsSelectedScale);
     console.log("______________________________________________");
 
     return (
       <>
         {/*//!  Вибір масштабу моделі */}
         <ScaleSelection
-          // inputSearchValue={inputSearchValue} //! значення inputSearch
-          
+          onGetModelsSelectedScale={this.getModelsSelectedScale} 
         />
 
         {/*//!  Filter */}
