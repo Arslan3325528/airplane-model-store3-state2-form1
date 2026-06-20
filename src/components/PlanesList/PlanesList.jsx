@@ -13,6 +13,7 @@ export function PlanesList({
     inputSearchValueTrigger, //! тригер для коректної роботи інпуту після очищення
     // onHighlightTextProtection, //! функція підсвічування тексту та допоміжна функція ---> ВИНОСИМО в utils
     radioButtonValue, //! ⭕️Значення параметра для пошуку/фільтрації радіо-кнопки
+    isCartOn, //! тригер: "якщо активна кнопка «Кошик»"
 })
 {
     return (
@@ -52,7 +53,7 @@ export function PlanesList({
                         </li>
                     )}
                 </ul>
-                : (inputSearchValue || inputSearchValueTrigger)
+                : (inputSearchValue || inputSearchValueTrigger || !isCartOn)
                     ? <h2 className={css.invitation}>Нічого не знайдено... ☹️</h2> 
                     : <h2 className={css.invitation}>Додайте товар до кошику... 😉</h2>
             }

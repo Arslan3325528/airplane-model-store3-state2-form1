@@ -8,7 +8,7 @@ export function Section({
   allTypes,
   totalModels,
   numberOfSelectedModelsAfterSorting,
-  isCartOn,
+  isCartOn, //! тригер: "якщо активна кнопка «Кошик»"
   bgColor = "unset",
   children
 })

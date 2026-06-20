@@ -582,6 +582,7 @@ export class App extends Component {
             inputSearchValueTrigger={inputSearchValueTrigger} //! тригер для коректної роботи інпуту після очищення
             // onHighlightTextProtection={this.highlightTextProtection} //! функція підсвічування тексту та допоміжна функція ---> ВИНОСИМО в utils
             radioButtonValue={radioButtonValue} //! ⭕️ значення параметра для пошуку/фільтрації радіо-кнопки
+            isCartOn={isCartButton} //! тригер: "якщо активна кнопка «Кошик»"
           />
         </Section >
       </>
