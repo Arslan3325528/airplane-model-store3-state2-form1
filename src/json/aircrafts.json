@@ -157,8 +157,8 @@
     "model": {
       "scale": [72, 100],
       "colorsPrice": {
-        "main100": 480,
-        "main72": "_820"
+        "main72": 820,
+        "main100": 480
       },
       "actualImages": [
         "/airplane-model-store3-state2-form1/images/planes-actual/j-20-comp-1.jpg",
