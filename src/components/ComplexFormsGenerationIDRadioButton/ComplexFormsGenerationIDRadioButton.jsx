@@ -104,7 +104,7 @@ export class ComplexFormsGenerationIDRadioButton extends Component {
                         type="radio"
                         name="experience"
                         value="junior"
-                        checked={this.state.experience === "junior"}
+                        checked={experience === "junior"}
                         onChange={this.handleChange}
                     />
                 </label>
@@ -115,7 +115,7 @@ export class ComplexFormsGenerationIDRadioButton extends Component {
                         type="radio"
                         name="experience"
                         value="middle"
-                        checked={this.state.experience === "middle"}
+                        checked={experience === "middle"}
                         onChange={this.handleChange}
                     />
                 </label>
@@ -126,7 +126,7 @@ export class ComplexFormsGenerationIDRadioButton extends Component {
                         type="radio"
                         name="experience"
                         value="senior"
-                        checked={this.state.experience === "senior"}
+                        checked={experience === "senior"}
                         onChange={this.handleChange}
                     />
                 </label>
