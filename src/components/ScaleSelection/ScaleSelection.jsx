@@ -5,7 +5,7 @@ import aircrafts from '@/json/aircrafts.json';
 import css from "./ScaleSelection.module.css";
 
 
-//? Підняття стану
+//? Підняття стану та передача пропсів батьківському компоненту
 //! Компонент-клас
 export class ScaleSelection extends Component {
   state = {
@@ -53,9 +53,9 @@ export class ScaleSelection extends Component {
     console.log("******************************************************");
 
     return (
-      <>
-        {/* {(!isCartOn || numberOfSelectedModels) && */}
-        <div className={css.scaleSelectionBox}>
+      <div className={css.scaleSelectionBox}>
+      {!isLocked && 
+        <>
           <h3 className={css.scaleSelectionTitle}>Оберіть масштаб моделі:</h3>
           <label>
             {/* масштаб моделі */}
@@ -76,9 +76,9 @@ export class ScaleSelection extends Component {
               <option className={css.scaleSelectionOption} value="32">1:32</option>
             </select>
           </label>
-        </div>
-        {/* } */}
-      </>
+        </>
+      }
+      </div>
     )
   }
 };
