@@ -535,7 +535,7 @@ export class App extends Component {
       <>
         {/*//!  Вибір масштабу моделі */}
         <ScaleSelection
-          aircrafts={aircrafts} //! ппочатково сортований вхідний масив УСІХ моделей
+          aircrafts={aircrafts} //! початково сортований вхідний масив УСІХ моделей
           isLocked={isCartButton} //! тригер: "якщо активна кнопка «Кошик»"
           onGetModelsSelectedScale={this.getModelsSelectedScale} 
         />
